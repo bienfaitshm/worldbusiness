@@ -1,10 +1,16 @@
 from rest_framework import serializers
-from .models import Article, Magazine, Docs
+from .models import Article, Magazine, Docs, Read
 
 
 class DocSerializer(serializers.ModelSerializer):
     class Meta:
         model = Docs
+        fields = "__all__"
+
+
+class ReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Read
         fields = "__all__"
 
 

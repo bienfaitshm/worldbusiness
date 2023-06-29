@@ -31,10 +31,19 @@ class Article(BaseArticle):
 class Docs(BaseModel):
     files = models.FileField(upload_to="datas")
 
+    def __str__(self):
+        return self.files.name
+
 
 class Magazine(BaseArticle):
     docs = models.ForeignKey(Docs, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.title
+
 
 class Read(BaseModel):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Lecture du {self.article}"
