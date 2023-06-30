@@ -1,5 +1,17 @@
 from rest_framework import serializers
-from .models import Article, Magazine, Docs, Read
+from .models import Article, Magazine, Docs, Read, RubriqueMagazine, CategoryArticle
+
+
+class RubriqueMagazineSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RubriqueMagazine
+        fields = "__all__"
+
+
+class CategoryArticleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CategoryArticle
+        fields = "__all__"
 
 
 class DocSerializer(serializers.ModelSerializer):
@@ -23,7 +35,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 
 class MagazineSerializer(serializers.ModelSerializer):
-    docs = DocSerializer(many=True, default=[])
+    docs = DocSerializer(many=True, default=[], )
 
     class Meta:
         model = Magazine

@@ -5,9 +5,11 @@ from django.http.request import HttpRequest
 from django.db.models import Count
 
 # Register your models here.
-from .models import Docs, Article, Magazine, Read
+from .models import Docs, Article, Magazine, Read, CategoryArticle, RubriqueMagazine
 
 admin.site.register(Read)
+admin.site.register(CategoryArticle)
+admin.site.register(RubriqueMagazine)
 admin.site.register(Docs)
 
 
@@ -20,7 +22,7 @@ class ArticleAdmin(admin.ModelAdmin):
             "fields": ("title", "redactor", "edition_date")
         }),
         ("Info supplementaire", {
-            "fields": ("image", "description")
+            "fields": ("image", "category", "description")
         }),
         ("Contenus de l'article", {
             "fields": ("content",)
@@ -45,7 +47,7 @@ class MagazineAdmin(admin.ModelAdmin):
 
     @admin.display(description="Documents Lies")
     def num_docs(self, obj: Magazine):
-        return obj.docs
+        return obj.num_docs
 
     def get_queryset(self, request: HttpRequest) -> QuerySet[Magazine]:
 

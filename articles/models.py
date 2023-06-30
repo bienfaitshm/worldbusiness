@@ -10,6 +10,20 @@ class BaseModel(models.Model):
         abstract = True
 
 
+class CategoryArticle(BaseModel):
+    name = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class RubriqueMagazine(BaseModel):
+    name = models.CharField(max_length=255)
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class BaseArticle(BaseModel):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -23,23 +37,28 @@ class Article(BaseArticle):
     content = RichTextUploadingField()  # CKEditor Rich Text Field
     redactor = models.CharField(max_length=255)
     edition_date = models.DateTimeField()
+    category = models.ForeignKey(
+        CategoryArticle, on_delete=models.CASCADE, null=True, default=None)
 
     def __str__(self) -> str:
         return self.title
 
 
+class Magazine(BaseArticle):
+    rubrique = models.ForeignKey(
+        RubriqueMagazine, on_delete=models.CASCADE, null=True, default=None)
+
+    def __str__(self):
+        return self.title
+
+
 class Docs(BaseModel):
+    magazine = models.ForeignKey(
+        Magazine, on_delete=models.CASCADE, related_name="docs")
     files = models.FileField(upload_to="datas")
 
     def __str__(self):
         return self.files.name
-
-
-class Magazine(BaseArticle):
-    docs = models.ForeignKey(Docs, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.title
 
 
 class Read(BaseModel):
