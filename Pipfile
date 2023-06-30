@@ -16,6 +16,7 @@ coreapi = "*"
 coreschema = "*"
 django-debug-toolbar = "*"
 pillow = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 

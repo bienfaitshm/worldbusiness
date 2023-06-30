@@ -15,6 +15,18 @@ admin.site.register(Docs)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ["pk", "title", "description", "num_read", "edition_date"]
 
+    fieldsets = (
+        ("Infos de l'article", {
+            "fields": ("title", "redactor", "edition_date")
+        }),
+        ("Info supplementaire", {
+            "fields": ("image", "description")
+        }),
+        ("Contenus de l'article", {
+            "fields": ("content",)
+        })
+    )
+
     @admin.display(description="Nombre de lecture")
     def num_read(self, obj: Article):
         return obj.num_read  # type: ignore

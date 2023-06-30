@@ -1,5 +1,5 @@
 from django.db import models
-
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 
 
@@ -20,7 +20,7 @@ class BaseArticle(BaseModel):
 
 
 class Article(BaseArticle):
-    content = models.TextField(blank=True)
+    content = RichTextUploadingField()  # CKEditor Rich Text Field
     redactor = models.CharField(max_length=255)
     edition_date = models.DateTimeField()
 

@@ -26,6 +26,8 @@ urlpatterns = [
     path("accounts/", include('djoser.urls.jwt')),
     # main
     path("", include('articles.urls')),
+    # The CKEditor pat
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 ] + static(
     settings.STATIC_URL,
